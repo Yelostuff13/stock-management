@@ -1,0 +1,55 @@
+{% extends 'layouts.html' %}
+{% load static %}
+{% load humanize %}
+{% block content%}
+
+
+    <div class="project-title pb-5">
+        <h1 class="text-uppercase title-h1">Stock Management</h1>
+        <h1 class="text-uppercase title-h1">System</h1>
+    </div>
+
+
+<div class="container">
+    <div class="row my-2">
+    {% for Film in Films %}
+    <div class="col-lg-4 col-md-6 mb-4">
+        <div class="card h-100">
+          <a href="#"><img class="card-img-top"  width="304" height="236" src="{{Film.image.url}}" alt=""></a>
+          <div class="card-body">
+            <h4 class="card-title">
+                <h6 class="text-uppercase"><strong>{{Film.name}}</strong></h6>
+                <h6 class="text-muted">stock : {{Film.stock}}</h6>
+            </h4>
+          </div>
+          <div class="card-footer">
+            {% if Film.stock <= 0 %} 
+                <h5 class="text-danger">Out of stock</h5>
+            {% else %}
+                <a href="{%url 'addCart' Film.id %}" class="btn btn-outline-success">Add to cart</a> 
+                <h4 style="display: inline-block; float: right"><strong>฿{{Film.price|intcomma}}</strong></h4>
+            {% endif %} 
+            
+          </div>
+        </div>
+      </div>
+
+    {% endfor %}
+    </div>
+    <nav aria-label="pagination">
+        {% if Films.paginator.num_pages > 1 %}
+        <ul class="pagination">
+              {% for page_number in Films.paginator.page_range %}
+                <li class="page-item 
+                {% if Films.number == page_number %}
+                      active
+                {% endif %}  
+                "><a class="page-link" href="?page={{ page_number }}">{{ page_number }}</a></li>
+              {% endfor %}
+        </ul>
+        {% endif %}
+    </nav>
+</div>
+
+
+{% endblock%}
