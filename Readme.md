@@ -1,4 +1,4 @@
-# Django + Postgres + Docker compose
+# Stock Management - Django + Postgres + Docker compose
 
 รันคำสั่งนี้ก่อน
 
